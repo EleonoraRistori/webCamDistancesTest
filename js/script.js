@@ -2,8 +2,8 @@
 // https://github.com/tensorflow/tfjs#getting-started.
 
 const STATUS = document.getElementById('status');
-const VIDEO = document.getElementById('webcam');
-const ENABLE_CAM_BUTTON = document.getElementById('enableCam');
+const webcam = document.getElementById('camera--view');
+
 const DETAIL_DISTANCES = document.getElementById('detail-distance');
 
 const MOBILE_NET_INPUT_WIDTH = 224;
@@ -11,7 +11,11 @@ const MOBILE_NET_INPUT_HEIGHT = 224;
 const STOP_DATA_GATHER = -1;
 const CLASS_NAMES = [];
 
-ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
+const constraints = {video: {facingMode: "environment"}, audio: false, zoom: true};
+// Define constants
+const cameraView = document.querySelector("#camera--view")
+
+
 
 
 // Just add more buttons in HTML to allow classification of more classes of data!
@@ -28,12 +32,7 @@ for (let i = 0; i < dataCollectorButtons.length; i++) {
 
 
 let model = undefined;
-let gatherDataState = STOP_DATA_GATHER;
-let videoPlaying = false;
-let trainingDataInputs = [];
-let trainingDataOutputs = [];
-let examplesCount = [];
-let predict = false;
+
 
 
 /**
@@ -53,35 +52,18 @@ async function loadMobileNetFeatureModel() {
 
 loadMobileNetFeatureModel();
 
-function hasGetUserMedia() {
-    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-}
 
 
-/**
- * Enable the webcam with video constraints applied.
- **/
-function enableCam() {
-    if (hasGetUserMedia()) {
-        // getUsermedia parameters.
-        const constraints = {
-            video: true,
-            width: 640,
-            height: 480
-        };
 
-        // Activate the webcam stream.
-        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-            VIDEO.srcObject = stream;
-            VIDEO.addEventListener('loadeddata', function() {
-                videoPlaying = true;
-                ENABLE_CAM_BUTTON.classList.add('removed');
-            });
-        });
-    } else {
-        console.warn('getUserMedia() is not supported by your browser');
-    }
-}
+
+
+
+
+
+// Take a picture when cameraTrigger is tapped
+
+// Start the video stream when the window loads
+
 
 function calculateFeaturesOnCurrentFrame(webcam){
     return tf.tidy(function() {
@@ -159,6 +141,7 @@ function predictLoop() {
     });
     window.requestAnimationFrame(predictLoop);
 }
+
 webcam.addEventListener("loadeddata", predictLoop);
 
 
