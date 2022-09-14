@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Make your own "Teachable Machine" using Transfer Learning with MobileNet v3 in TensorFlow.js using saved graph model from TFHub.</h1>
+
+<p id="status">Awaiting TF.js load</p>
+
+<video id="webcam" autoplay></video>
+<canvas id="canvas_no_display" style="display: none"></canvas>
+<button id="enableCam">Enable Webcam</button>
+<p id="detail-distance"></p>
+
+
+<!-- Import TensorFlow.js library -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js" type="text/javascript"></script>
+
+<!-- Import the page's JavaScript to do some stuff -->
+<script type="module" src="/script.js"></script>
+</body>
+</html>
